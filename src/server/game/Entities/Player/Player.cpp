@@ -1633,6 +1633,7 @@ void Player::ProcessDelayedOperations()
 
         SetPower(POWER_RAGE, 0);
         SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
+        SetPower(POWER_FOCUS, GetMaxPower(POWER_FOCUS));
 
         SpawnCorpseBones();
     }
@@ -1760,6 +1761,8 @@ void Player::RegenerateAll()
     m_foodEmoteTimerCount += m_regenTimer;
 
     Regenerate(POWER_ENERGY);
+
+    Regenerate(POWER_FOCUS);
 
     Regenerate(POWER_MANA);
 
@@ -2051,6 +2054,10 @@ void Player::ResetAllPowers()
     if (HasActivePowerType(POWER_ENERGY))
     {
         SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
+    }
+    if (HasActivePowerType(POWER_FOCUS))
+    {
+        SetPower(POWER_FOCUS, GetMaxPower(POWER_FOCUS));
     }
     if (HasActivePowerType(POWER_RUNIC_POWER))
     {
@@ -2517,7 +2524,7 @@ void Player::GiveLevel(uint8 level)
         SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
         if (GetPower(POWER_RAGE) > GetMaxPower(POWER_RAGE))
             SetPower(POWER_RAGE, GetMaxPower(POWER_RAGE));
-        SetPower(POWER_FOCUS, 100);
+        SetPower(POWER_FOCUS, GetMaxPower(POWER_FOCUS));
         SetPower(POWER_HAPPINESS, 0);
     }
 
@@ -2731,7 +2738,7 @@ void Player::InitStatsForLevel(bool reapplyMods)
     SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
     if (GetPower(POWER_RAGE) > GetMaxPower(POWER_RAGE))
         SetPower(POWER_RAGE, GetMaxPower(POWER_RAGE));
-    SetPower(POWER_FOCUS, 100);
+    SetPower(POWER_FOCUS, GetMaxPower(POWER_FOCUS));
     SetPower(POWER_HAPPINESS, 0);
     SetPower(POWER_RUNIC_POWER, 0);
 
@@ -4503,6 +4510,7 @@ void Player::ResurrectPlayer(float restore_percent, bool applySickness)
         SetPower(POWER_MANA, uint32(GetMaxPower(POWER_MANA)*restore_percent));
         SetPower(POWER_RAGE, 0);
         SetPower(POWER_ENERGY, uint32(GetMaxPower(POWER_ENERGY)*restore_percent));
+        SetPower(POWER_FOCUS, uint32(GetMaxPower(POWER_FOCUS) * restore_percent));
     }
 
     // trigger update zone for alive state zone updates
@@ -12871,6 +12879,8 @@ void Player::ResurectUsingRequestData()
     SetPower(POWER_RAGE, 0);
 
     SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
+
+    SetPower(POWER_FOCUS, GetMaxPower(POWER_FOCUS));
 
     SpawnCorpseBones();
 }
